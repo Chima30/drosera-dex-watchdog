@@ -1,26 +1,115 @@
-# 🛡️ drosera-dex-watchdog
+🛡️ Drosera DEX Watchdog
 
-An on-chain DEX monitoring system built on the Drosera Network, This project detects and logs suspicious token activity — including rug pulls, honeypots, price manipulation, and flash loan attacks — using Drosera's Trap contract system and a connected off-chain bot that pushes alerts to Telegram.
+An on-chain and off-chain hybrid monitoring tool built on the Drosera network, designed to detect and log suspicious activity on decentralized exchanges (DEXs) such as:
 
----
+- Rug pulls
 
-## 🔍 What It Does
+- Spoofing
 
-The **Drosera DEX Watchdog** consists of:
+- Sudden price manipulations
 
-### 🔗 Smart Contract (Trap)
+- Abnormal swap behavior
 
-- Deploys a Trap contract (`DEXTrap.sol`) on the Drosera network.
-- Logs suspicious swap activity using `reportSwap(...)`.
-- Collects metadata like token addresses, amounts, and trader wallets.
+This system combines a Drosera Trap smart contract (which emits on-chain logs) with an off-chain bot that watches DEX activity and triggers alerts.
 
-### 📡 Off-Chain Watchdog Script
+📦 Features
+| Feature                   | Description                                     |
+| ------------------------- | ----------------------------------------------- |
+| 🔍 On-chain Trap          | Logs suspicious token interactions using events |
+| 🧠 Off-chain Logic        | Your bot detects what's suspicious and logs it  |
+| 📡 Telegram/Discord Ready | Hook into alerting platforms                    |
+| 🧪 Built for Drosera      | Integrates Drosera traps, RPC, and tooling      |
+| 🛠️ Easy Deployment       | Comes with deployment scripts and configuration |
 
-- A Node.js script (`scripts/reportSwap.js`) that listens to token swaps or receives flagged data.
-- Calls the `reportSwap()` function on-chain to log that event.
-- Can be extended to send alerts (Telegram, Discord, webhook, etc).
+### 🧠 Project Architecture
 
----
+```bash
+drosera-dex-watchdog/
+├── contracts/
+│   └── DroseraDEXWatchdog.sol      # Drosera Trap contract for logging
+├── scripts/
+│   └── reportSwap.js               # Off-chain bot to report suspicious activity
+├── .env                            # Private config (not committed)
+├── drosera.toml                    # Drosera deployment config
+├── .gitignore                      # Git ignored files
+└── README.md                       # You're here
+```
 
-## 🧱 Folder Structure
+### 🚀 Getting Started
+1. Clone the Repository
+
+```bash
+Copy
+Edit
+git clone https://github.com/yourusername/drosera-dex-watchdog.git
+cd drosera-dex-watchdog
+```
+
+2. Install Dependencies
+```bash
+Copy
+Edit
+npm install
+```
+
+3. Configure .env
+Create a .env file in the root of your project and add the following:
+
+```ini
+WATCHDOG_CONTRACT=0xYourDeployedContractAddress
+PRIVATE_KEY=your_wallet_private_key
+DROSERA_RPC=https://eth-drosera.g.alchemy.com/v2/YOUR_KEY
+```
+
+4. Compile Contracts
+```bash
+npx hardhat compile
+```
+
+### ⚙️ Deploy the Contract to Drosera
+Make sure your .env file has your private key and RPC URL.
+
+To deploy using Hardhat:
+
+```bash
+npx hardhat run scripts/deploy.js --network drosera
+```
+Or use the Drosera CLI if you’ve configured drosera.toml:
+
+```bash
+drosera apply
+```
+
+### 📡 Run the Watchdog Bot
+After deployment, and once .env is ready, run the monitoring script:
+
+```bash
+npx hardhat run scripts/reportSwap.js --network drosera
+```
+
+### 🔐 .gitignore
+These files are already ignored:
+
+```gitignore
+node_modules/
+.env
+artifacts/
+cache/
+```
+
+✅ What This Contract Does
+- This system is not a detector — it's a logger.
+
+- Your off-chain script (like reportSwap.js) watches on-chain events and DEX activity.
+
+- When it spots something suspicious, it sends a report by calling the smart contract.
+
+The smart contract then emits an event, which is:
+
+ - Stored on-chain
+
+ - Picked up by Drosera, The Graph, or other indexers
+
+ - Useful for dashboards, analytics, or alerts
+
 
