@@ -39,16 +39,12 @@ drosera-dex-watchdog/
 1. Clone the Repository
 
 ```bash
-Copy
-Edit
 git clone https://github.com/yourusername/drosera-dex-watchdog.git
 cd drosera-dex-watchdog
 ```
 
 2. Install Dependencies
 ```bash
-Copy
-Edit
 npm install
 ```
 
@@ -98,6 +94,7 @@ main().catch((error) => {
   process.exit(1);
 });
 ```
+</details>
 
 ### 📡 Run the Watchdog Bot
 After deployment, and once .env is ready, run the monitoring script:
