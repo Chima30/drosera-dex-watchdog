@@ -1,4 +1,4 @@
-🛡️ Drosera DEX Watchdog
+### 🛡️ Drosera DEX Watchdog - Trap
 
 An on-chain and off-chain hybrid monitoring tool built on the Drosera network, designed to detect and log suspicious activity on decentralized exchanges (DEXs) such as:
 
@@ -12,7 +12,7 @@ An on-chain and off-chain hybrid monitoring tool built on the Drosera network, d
 
 This system combines a Drosera Trap smart contract (which emits on-chain logs) with an off-chain bot that watches DEX activity and triggers alerts.
 
-📦 Features
+### 📦 Features
 | Feature                   | Description                                     |
 | ------------------------- | ----------------------------------------------- |
 | 🔍 On-chain Trap          | Logs suspicious token interactions using events |
